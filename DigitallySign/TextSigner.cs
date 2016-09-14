@@ -3,11 +3,11 @@ namespace DigitallySign
 {
 
 
-    class Text 
+    public class TextSigner 
     {
 
         
-        static byte[] Sign(string text)
+        public static byte[] Sign(string text)
         {
             // Find the certificate we’ll use to sign
             using (System.Security.Cryptography.RSACryptoServiceProvider csp = ProviderFactory.CreateProvider())
@@ -30,7 +30,7 @@ namespace DigitallySign
         }
 
 
-        static bool Verify(string text, byte[] signature)
+        public static bool Verify(string text, byte[] signature)
         {
             // Get its associated CSP and public key
             using (System.Security.Cryptography.RSACryptoServiceProvider csp = ProviderFactory.CreateProvider())
@@ -49,7 +49,7 @@ namespace DigitallySign
         }
 
 
-        static void Test()
+        public static void Test()
         {
             // Usage sample
             try

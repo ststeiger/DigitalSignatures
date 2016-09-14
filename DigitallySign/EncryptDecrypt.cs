@@ -1,31 +1,14 @@
 ﻿
-using System;
-using System.Security.Cryptography;
-
-
-namespace DocumentSigner
+namespace DigitallySign
 {
 
 
     public class EncryptDecrypt
     {
+
+
         public EncryptDecrypt()
         { } // End Constructor 
-
-
-        public static RSACryptoServiceProvider CreateProvider()
-        {
-            string publicPrivateKeyXML = "";
-            string publicOnlyKeyXML = "";
-
-            RSACryptoServiceProvider rSACryptoServiceProvider = new RSACryptoServiceProvider(new CspParameters
-                {
-                    Flags = CspProviderFlags.UseMachineKeyStore
-                });
-            rSACryptoServiceProvider.FromXmlString(publicPrivateKeyXML);
-
-            return rSACryptoServiceProvider;
-        } // End Function CreateProvider 
 
 
         public static string ReadPlainFile()
@@ -56,7 +39,7 @@ namespace DocumentSigner
             bool bSomeSetting = false;
             string inputText = ReadPlainFile();
 
-            using (RSACryptoServiceProvider rsa = CreateProvider())
+            using (System.Security.Cryptography.RSACryptoServiceProvider rsa = ProviderFactory.CreateProvider())
             {
                 byte[] inputTextBytes = System.Text.Encoding.UTF8.GetBytes(inputText);
                 byte[] enc = rsa.Encrypt(inputTextBytes, bSomeSetting);
@@ -73,10 +56,10 @@ namespace DocumentSigner
             string plainText = null;
             bool bSomeSetting = false;
 
-            using (RSACryptoServiceProvider rsa = CreateProvider())
+            using (System.Security.Cryptography.RSACryptoServiceProvider rsa = ProviderFactory.CreateProvider())
             {
                 string readHexValue = ReadCyperFile();
-                byte[] enc2 = HexStringToByteArray(readHexValue);
+                byte[] enc2 = Helper.HexStringToByteArray(readHexValue);
                 byte[] dec = rsa.Decrypt(enc2, bSomeSetting);
 
                 plainText = System.Text.Encoding.UTF8.GetString(dec);
@@ -89,19 +72,12 @@ namespace DocumentSigner
         } // End Sub DecryptFile 
 
 
-        public static void Test()
-        {
-            EncryptFile();
-            DecryptFile();
-        } // End Sub Test 
-
-
         public static void EncryptDecryptFile()
         {
             bool bSomeSetting = false;
             string inputText = ReadPlainFile();
 
-            using (RSACryptoServiceProvider rsa = CreateProvider())
+            using (System.Security.Cryptography.RSACryptoServiceProvider rsa = ProviderFactory.CreateProvider())
             {
                 byte[] inputTextBytes = System.Text.Encoding.UTF8.GetBytes(inputText);
                 byte[] enc = rsa.Encrypt(inputTextBytes, bSomeSetting);
@@ -109,11 +85,8 @@ namespace DocumentSigner
                 string hexValue = System.BitConverter.ToString(enc);
                 WriteCyperFile(hexValue);
 
-
                 string readHexValue = ReadCyperFile();
-
-                byte[] enc2 = HexStringToByteArray(readHexValue);
-
+                byte[] enc2 = Helper.HexStringToByteArray(readHexValue);
                 byte[] dec = rsa.Decrypt(enc2, bSomeSetting);
                 string plainText = System.Text.Encoding.UTF8.GetString(dec);
                 System.Console.WriteLine(plainText);
@@ -125,19 +98,14 @@ namespace DocumentSigner
         } // End Sub Test 
 
 
-        public static byte[] HexStringToByteArray(string strHexString)
+        public static void Test()
         {
-            int iNumberOfChars = strHexString.Length;
-            byte[] baBuffer = new byte[iNumberOfChars / 2];
-            for (int i = 0; i <= iNumberOfChars - 1; i += 2)
-            {
-                baBuffer[i / 2] = System.Convert.ToByte(strHexString.Substring(i, 2), 16);
-            }
-            return baBuffer;
-        } // End Function HexStringToByteArray
+            EncryptFile();
+            DecryptFile();
+        } // End Sub Test 
 
 
-    }
+    } // End Class EncryptDecrypt
 
 
-} 
+} // End Namespace DigitallySign
