@@ -7,7 +7,7 @@ namespace DigitallySign
 {
 
 
-    class ProviderFactory
+    public class ProviderFactory
     {
 
 
@@ -23,8 +23,9 @@ namespace DigitallySign
 
                 this.PrivateKey = publicPrivateKeyXML;
                 this.PublicKey = publicOnlyKeyXML;
-            }
-        }
+            } // End Constructor 
+
+        } // End Class RsaKeyPair 
 
 
         public static RsaKeyPair CreateNewKey()
@@ -36,11 +37,11 @@ namespace DigitallySign
             {
                 keyPair.PrivateKey = rsa.ToXmlString(true);
                 keyPair.PublicKey = rsa.ToXmlString(false);
-            }
+            } // End Using rsa 
 
             System.Console.WriteLine(keyPair.PublicKey + keyPair.PrivateKey);
             return keyPair;
-        }
+        } // End Function CreateNewKey 
 
 
         // if (Verify("Test", signature, @"C:\testcert.cer"))
@@ -56,7 +57,7 @@ namespace DigitallySign
 
             // Get its associated CSP and public key
             return (System.Security.Cryptography.RSACryptoServiceProvider)cert.PublicKey.Key;
-        }
+        } // End Function FromCertPath 
 
 
         // FromStore("cn=my cert subject");
@@ -83,7 +84,7 @@ namespace DigitallySign
             } // Next cert 
 
             throw new System.Exception("No valid cert was found");
-        }
+        } // End Function FromStore 
 
 
         public static System.Security.Cryptography.RSACryptoServiceProvider CreateProvider()
@@ -104,7 +105,7 @@ namespace DigitallySign
         } // End Function CreateProvider 
 
 
-    }
+    } // End Class ProviderFactory
 
 
-}
+} // End Namespace DigitallySign 
