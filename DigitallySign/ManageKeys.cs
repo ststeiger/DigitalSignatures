@@ -29,7 +29,7 @@ namespace DigitallySign
             builder.AppendLine("-----END CERTIFICATE-----");
 
             return builder.ToString();
-        }
+        } // End Function ExportToPEM 
 
 
         /// Following function will initialize a instance of RSACryptoServiceProvider
@@ -43,7 +43,7 @@ namespace DigitallySign
             System.Security.Cryptography.RSACryptoServiceProvider rsa = new System.Security.Cryptography.RSACryptoServiceProvider(cp);
 
             return rsa;
-        }
+        } // End Function GetSavedKeyFromContainer 
 
 
         ///Following function will delete the specified MachineKeyContainer
@@ -57,11 +57,12 @@ namespace DigitallySign
             {
                 rsa.PersistKeyInCsp = false;
                 rsa.Clear();
-            }
-        }
+            } // End Using rsa 
+
+        } // End Sub DeleteSavedKeyFromContainer 
 
 
-    }
+    } // End Class ManageKeys
 
 
-}
+} // End Namespace DigitallySign 

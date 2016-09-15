@@ -6,7 +6,7 @@ namespace DigitallySign
 {
 
 
-    class XmlSigner
+    public class XmlSigner
     {
 
 
@@ -34,7 +34,7 @@ namespace DigitallySign
 
             xmlDoc.DocumentElement.AppendChild(xmlDoc.ImportNode(xmlDigitalSignature, true));
             xmlDoc.Save(outFileName);
-        }
+        } // End Sub SignDocument 
 
 
         // Verify the signature of an XML file against an asymetric 
@@ -62,7 +62,7 @@ namespace DigitallySign
 
             // Check the signature and return the result.
             return signedXml.CheckSignature(key);
-        }
+        } // End Function VerifyXmlFile 
 
 
         public static void Test()
@@ -79,7 +79,7 @@ namespace DigitallySign
                     bool result = VerifyXmlFile("Test1.xml", rsaKey);
 
                     // Display the results of the signature verification to the console.
-                    if(result)
+                    if (result)
                     {
                         System.Console.WriteLine("The XML signature is valid.");
                     }
@@ -88,17 +88,18 @@ namespace DigitallySign
                         System.Console.WriteLine("The XML signature is not valid.");
                     }
                 }
-                catch(System.Security.Cryptography.CryptographicException e)
+                catch (System.Security.Cryptography.CryptographicException e)
                 {
                     System.Console.WriteLine(e.Message);
                 }
-            }
+
+            } // End Using rsaKey 
 
             System.Console.WriteLine("Finished testing XML-signature");
-        }
+        } // End Sub Test
 
 
-    }
+    } // End Class XmlSigner 
 
 
-}
+} // End Namespace DigitallySign 

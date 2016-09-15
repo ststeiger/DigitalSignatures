@@ -3,7 +3,7 @@ namespace DigitallySign
 {
 
 
-    static class Program
+    public static class Program
     {
 
 
@@ -18,6 +18,8 @@ namespace DigitallySign
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             System.Windows.Forms.Application.Run(new Form1());
             #endif
+
+
             // DigitallySign.ProviderFactory.CreateNewKey();
             // DigitallySign.EncryptDecrypt.Test();
             // DigitallySign.XmlSigner.Test();
@@ -25,10 +27,10 @@ namespace DigitallySign
 
             // DigitallySign.ManageKeys.ExportToPEM(null);
             System.Console.ReadKey();
-        }
+        } // End Sub Main 
 
 
-    }
+    } // End Class Program
 
 
-}
+} // End Namespace DigitallySign 
